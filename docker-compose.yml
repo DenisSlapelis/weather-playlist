@@ -1,0 +1,46 @@
+version: "3.2"
+services:
+  nodejs:
+    build:
+      context: .
+    image: weather-playlist/nodejs
+    networks:
+      - frontend
+      - backend
+    environment:
+      - MYSQL_HOST=weather-playlist-mysql
+      - MYSQL_USER=dwsuser
+      - MYSQL_PASS=dwspass123
+      - MYSQL_DB=weather_playlist_db
+    volumes:
+      - .:/usr/app
+    ports:
+      - "4000:4000"
+    container_name: weather-playlist-nodejs
+  mysql:
+    image: mysql:5.7
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=dwsuser
+      - MYSQL_PASSWORD=dwspass123 
+      - MYSQL_DATABASE=weather_playlist_db
+    container_name: weather-playlist-mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - mysql
+    networks:
+      - backend
+    ports:
+      - "30002:80"
+    environment:
+      - PMA_HOST=weather-playlist-mysql
+      - PMA_PORT=3306
+    volumes:
+      - /sessions
+    container_name: weather-playlist-phpmyadmin
+networks:
+  frontend:
+  backend:

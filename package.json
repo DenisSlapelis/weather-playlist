@@ -1,0 +1,49 @@
+{
+  "name": "weather-playlist",
+  "version": "1.0.0",
+  "description": "A microservice to register a user and recommend songs based on hometown weather.",
+  "main": "index.js",
+  "engines": {
+    "node": "12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DenisSlapelis/weather-playlist.git"
+  },
+  "keywords": [],
+  "author": "Denis Slapelis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DenisSlapelis/weather-playlist/issues"
+  },
+  "homepage": "https://github.com/DenisSlapelis/weather-playlist#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predev": "npx sequelize-cli db:migrate",
+    "dev": "nodemon -L src/server.js",
+    "postdev": "npx sequelize-cli db:migrate:undo:all",
+    "start": "node src/server.js",
+    "docs": "node src/docs/swagger.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql-migrations": "^1.0.7",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.4.0",
+    "spotify-web-api-node": "^5.0.1",
+    "swagger-autogen": "^2.5.7",
+    "swagger-ui-express": "^4.1.6",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^6.1.1"
+  }
+}
