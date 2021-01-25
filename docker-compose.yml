@@ -12,6 +12,7 @@ services:
       - MYSQL_USER=dwsuser
       - MYSQL_PASS=dwspass123
       - MYSQL_DB=weather_playlist_db
+      - APP_SECRET=0ZQkCvWZgQyI
     volumes:
       - .:/usr/app
     ports:

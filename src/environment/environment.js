@@ -7,6 +7,7 @@ class Environment {
         this.host = process.env.HOST || '0.0.0.0';
         this.port = process.env.PORT || 4000;
         this.showStack = process.env.SHOW_STACK || "false";
+        this.appSecret = process.env.APP_SECRET;
 
         // DATABASE (MYSQL) CONF VARS
         this.mySqlHost = process.env.MYSQL_HOST || 'localhost';
