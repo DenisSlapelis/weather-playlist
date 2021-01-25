@@ -74,4 +74,56 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.post('/login', async (req, res) => {
+    /*
+        == Description
+        #swagger.tags = ['Users']
+        #swagger.description = 'User login with email and password.'
+        #swagger.path = '/api/v1/users/login'
+
+        == Params:
+        #swagger.parameters['email'] = {
+            in: 'body',
+            description: 'User email.',
+            required: true,
+            type: 'string'
+        }
+
+        #swagger.parameters['password'] = {
+            in: 'body',
+            description: 'User password.',
+            required: true,
+            type: 'string'
+        }
+
+        == Successful response:
+        #swagger.responses[200] = {
+            schema: { $ref: "#/definitions/LoggedInUser" },
+            description: 'JSON data'
+        }
+
+        == Error responses:
+        #swagger.responses[400] = {
+            schema: { $ref: "#/definitions/CustomError" },
+            description: 'Validation Error'
+        }
+
+        #swagger.responses[500] = {
+            schema: { $ref: "#/definitions/CustomError" },
+            description: 'Unexpected error'
+        }
+    */
+
+    try {
+        const { email, password } = req.body;
+        const result = await service.doLogin(email, password);
+        res.status(200).json(result);
+    } catch (err) {
+        if (err.name && err.name === 'Validation Error')
+            res.status(400).json(err);
+        else
+            res.status(500).json(formatter.formatErrorResponse(err));
+    }
+});
+
 module.exports = router;

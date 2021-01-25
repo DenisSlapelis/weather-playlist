@@ -1,5 +1,7 @@
-const CustomError = require('../../shared/custom-error', 'Validation Error');
+const environment = require('../../environment/environment');
+const CustomError = require('../../shared/custom-error');
 const userDAO = require('./user.dao');
+const jwt = require("jsonwebtoken");
 
 class UserUtils {
     constructor() {
@@ -13,6 +15,11 @@ class UserUtils {
         this.personalNotesdValidation(personalNotes);
         this.hometowndValidation(hometown);
         await this.checksIfuserAlreadyExists(email);
+    }
+
+    loginValidation = async (email, password) => {
+        this.emailValidation(email);
+        this.passwordValidation(password);
     }
 
     nameValidation = (name) => {
@@ -69,6 +76,21 @@ class UserUtils {
 
         if (result && result.dataValues)
             throw new CustomError('There is already a registered user with this email', 'Validation Error');
+    }
+
+    formatLoginResponse = (user) => {
+        const { email, id } = user;
+        const { name, hometown } = user.User.dataValues;
+        const token = jwt.sign({ id, email, hometown }, environment.appSecret);
+
+        return {
+            user: {
+                email,
+                name,
+                hometown
+            },
+            token
+        }
     }
 }
 

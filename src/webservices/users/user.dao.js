@@ -9,7 +9,7 @@ class UserDAO {
     }
 
     getUserByEmail = async (email) => {
-        return UserAuth.findOne({ where: { email } }).catch(err => {
+        return UserAuth.findOne({ where: { email }, include: [User] }).catch(err => {
             throw new CustomError(err.message, 'Sequelize MySQL Error');
         });
     }
