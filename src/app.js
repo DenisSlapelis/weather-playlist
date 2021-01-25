@@ -2,6 +2,7 @@ require("dotenv").config({
     path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
 });
 require('./db');
+const middlewares = require('./routes/middleware');
 
 const express = require("express");
 
@@ -14,6 +15,7 @@ class AppController {
 
     middlewares() {
         this.express.use(express.json());
+        this.express.use(middlewares.checkAuthToken);
     }
 
     routes() {
