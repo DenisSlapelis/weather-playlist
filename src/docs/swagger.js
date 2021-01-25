@@ -25,6 +25,7 @@ const doc = {
         },
     ],
     definitions: {
+        LoggedInUser: model.loggedInUserResponse,
         CustomError: model.customError
     }
 }
