@@ -13,6 +13,8 @@ services:
       - MYSQL_PASS=dwspass123
       - MYSQL_DB=weather_playlist_db
       - APP_SECRET=0ZQkCvWZgQyI
+      - WEATHER_MAP_ID=3d96c658e46ad5e9b7942195c691c17e
+      - SPOTIFY_ID=3d96c658e46ad5e9b7942195c691c17e
     volumes:
       - .:/usr/app
     ports:

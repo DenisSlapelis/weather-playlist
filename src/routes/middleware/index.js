@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 
 const authRoutes = [
-    '/api/v1/playlist',
+    '/api/v1/playlists',
 ];
 
 exports.checkAuthToken = async (req, res, next) => {
