@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/DenisSlapelis/weather-playlist#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "predev": "npx sequelize-cli db:migrate",
     "dev": "nodemon -L src/server.js",
     "postdev": "npx sequelize-cli db:migrate:undo:all",

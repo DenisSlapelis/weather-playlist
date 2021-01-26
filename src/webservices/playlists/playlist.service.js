@@ -37,10 +37,10 @@ class PlaylistService {
         if (temperature > 30)
             return "party";
 
-        if (temperature => 15 && temperature <= 30)
+        if (temperature >= 15 && temperature <= 30)
             return "pop";
 
-        if (temperature => 10 && temperature < 15)
+        if (temperature >= 10 && temperature < 15)
             return "rock";
 
         return "classical";
