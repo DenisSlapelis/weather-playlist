@@ -58,6 +58,31 @@ class UserDAO {
             });
         }
     }
+
+    updateRecoveryPasswordToken = async (email, newPasswordToken) => {
+        UserAuth.update({
+            password_recovery_token: newPasswordToken
+        }, {
+            where: { email },
+        }).then(function (rowsUpdated) {
+            console.log('rowsUpdated: ', rowsUpdated);
+        }).catch(err => {
+            throw new CustomError(err.message, 'Sequelize MySQL Error');
+        });
+    }
+
+    resetUserPassword = async (email, newPassword, recoveryToken) => {
+        UserAuth.update({
+            password_hash: newPassword,
+            password_recovery_token: null
+        }, {
+            where: { email, password_recovery_token: recoveryToken },
+        }).then(function (rowsUpdated) {
+            console.log('rowsUpdated: ', rowsUpdated);
+        }).catch(err => {
+            throw new CustomError(err.message, 'Sequelize MySQL Error');
+        });
+    }
 }
 
 module.exports = new UserDAO();

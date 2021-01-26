@@ -8,6 +8,7 @@ class UserAuth extends Model {
             email: DataTypes.STRING,
             password: DataTypes.VIRTUAL,
             password_hash: DataTypes.STRING,
+            password_recovery_token: DataTypes.STRING,
         }, {
 
             hooks: {

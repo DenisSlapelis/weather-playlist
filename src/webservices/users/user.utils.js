@@ -9,11 +9,11 @@ class UserUtils {
     }
 
     userValidation = async ({ name, email, password, personalNotes, hometown }) => {
-        this.nameValidation(name);
+        this.genericNotNullValidation('name', name);
         this.emailValidation(email);
         this.passwordValidation(password);
         this.personalNotesdValidation(personalNotes);
-        this.hometowndValidation(hometown);
+        this.genericNotNullValidation('hometown', hometown);
         await this.checksIfuserAlreadyExists(email);
     }
 
@@ -22,9 +22,10 @@ class UserUtils {
         this.passwordValidation(password);
     }
 
-    nameValidation = (name) => {
-        if (!name)
-            throw new CustomError('Required param name was not found', 'Validation Error');
+    resetPasswordValidation = (email, newPassword, recoveryToken) => {
+        this.emailValidation(email);
+        this.passwordValidation(newPassword);
+        this.genericNotNullValidation('recoveryToken', recoveryToken);
     }
 
     emailValidation = (email) => {
@@ -66,9 +67,9 @@ class UserUtils {
             throw new CustomError('Invalid personalNotes', 'Validation Error');
     }
 
-    hometowndValidation = (hometown) => {
-        if (!hometown)
-            throw new CustomError('Required param hometown was not found', 'Validation Error');
+    genericNotNullValidation = (name, value) => {
+        if (!value)
+            throw new CustomError(`Required param ${name} was not found`, 'Validation Error');
     }
 
     checksIfuserAlreadyExists = async (email) => {

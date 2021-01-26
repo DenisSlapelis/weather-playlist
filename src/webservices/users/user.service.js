@@ -2,6 +2,7 @@ const CustomError = require('../../shared/custom-error');
 const userUtils = require('./user.utils');
 const userDAO = require('./user.dao');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 class UserService {
     constructor() {
@@ -31,6 +32,35 @@ class UserService {
     isValidatCredentials = async (user, password) => {
         const passwordHash = user.password_hash;
         return bcrypt.compare(password, passwordHash);
+    }
+
+    forgotPassword = async (email) => {
+        userUtils.emailValidation(email);
+
+        const recoveryToken = crypto.randomBytes(20).toString('hex');
+        console.log('== recoveryToken: ', recoveryToken);
+
+        await userDAO.updateRecoveryPasswordToken(email, recoveryToken);
+
+        this.sendRecoveryTokenEmail(email, recoveryToken);
+    }
+
+    sendRecoveryTokenEmail = async (email, recoveryToken) => {
+        /* TODO: Email sender with password recovery token to user can create a new password.
+
+            While this function is not implemented,
+            you can pick up the token stored in the database
+            or check the node logs.
+
+        */
+    }
+
+    resetPassword = async (email, newPassword, recoveryToken) => {
+        userUtils.resetPasswordValidation(email, newPassword, recoveryToken);
+
+        const newPasswordHash = await bcrypt.hash(newPassword, 8);
+
+        await userDAO.resetUserPassword(email, newPasswordHash, recoveryToken);
     }
 }
 
