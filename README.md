@@ -18,4 +18,6 @@ Now you can execute the previously created image with the command::
 $ docker-compose up
 ```
 
-OBS: If the docker cannot connect to the local network the external apis (Weather and Spotify on /playlists) will not work properly.
+OBS1: If the docker cannot connect to the local network the external apis (Weather and Spotify on /playlists) will not work properly.
+
+OBS2: I was unable to generate a permanent spotify token, so if the temporary token has expired, I ask you to please enter the link https://developer.spotify.com/console/get-search-item/ and click "GET TOKEN" to generate a new token, and then insert that new token into the .env file in the SPOTIFY_TEMP_TOKEN variable. I know the .env file shouldn't be in git but I left it public to make it easier to change the token. I didn't leave the other variables in the .env as well because I would have to publish them anyway.
