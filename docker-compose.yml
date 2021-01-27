@@ -1,0 +1,48 @@
+version: "3.2"
+services:
+  nodejs:
+    build:
+      context: .
+    image: weather-playlist/nodejs
+    networks:
+      - backend
+    environment:
+      - MYSQL_HOST=weather-playlist-mysql
+      - MYSQL_USER=dwsuser
+      - MYSQL_PASS=dwspass123
+      - MYSQL_DB=weather_playlist_db
+      - APP_SECRET=0ZQkCvWZgQyI
+      - WEATHER_MAP_ID=3d96c658e46ad5e9b7942195c691c17e
+      - SPOTIFY_ID=BQCOPFyUlPKUI3ZWHhgmEqN7daih8q3plXhWbpZ3Hr8osAm6Q-jzWC0OE-0YYEKFMxQcG9iMC_Us3RSxkq_CcTtri5jZ4yNugaISR5Cuq27O9sLZ0bVEnaB31OXAaOrx5X3ZI7xDQ4jfxWAGhtt_l0JjDlEYlGzKB_5X3NgIuz8G
+    volumes:
+      - .:/usr/app
+    ports:
+      - "4000:4000"
+    container_name: weather-playlist-nodejs
+  mysql:
+    image: mysql:5.7
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=dwsuser
+      - MYSQL_PASSWORD=dwspass123 
+      - MYSQL_DATABASE=weather_playlist_db
+    container_name: weather-playlist-mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - mysql
+    networks:
+      - backend
+    ports:
+      - "30002:80"
+    environment:
+      - PMA_HOST=weather-playlist-mysql
+      - PMA_PORT=3306
+    volumes:
+      - /sessions
+    container_name: weather-playlist-phpmyadmin
+networks:
+  backend:
+    driver: bridge
