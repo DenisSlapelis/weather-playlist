@@ -21,7 +21,7 @@ class Environment {
 
         // EXTERNAL APIS URL
         this.weatherMapApi = 'api.openweathermap.org/data/2.5';
-        this.spotifyApi = '';
+        this.spotifyApi = 'api.spotify.com/v1';
     }
 
 }

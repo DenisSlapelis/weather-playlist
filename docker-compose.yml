@@ -13,7 +13,7 @@ services:
       - MYSQL_DB=weather_playlist_db
       - APP_SECRET=0ZQkCvWZgQyI
       - WEATHER_MAP_ID=3d96c658e46ad5e9b7942195c691c17e
-      - SPOTIFY_ID=3d96c658e46ad5e9b7942195c691c17e
+      - SPOTIFY_ID=BQCOPFyUlPKUI3ZWHhgmEqN7daih8q3plXhWbpZ3Hr8osAm6Q-jzWC0OE-0YYEKFMxQcG9iMC_Us3RSxkq_CcTtri5jZ4yNugaISR5Cuq27O9sLZ0bVEnaB31OXAaOrx5X3ZI7xDQ4jfxWAGhtt_l0JjDlEYlGzKB_5X3NgIuz8G
     volumes:
       - .:/usr/app
     ports:

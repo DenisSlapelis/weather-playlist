@@ -25,7 +25,8 @@ class PlaylistService {
             units: 'metric'
         }
 
-        const response = await axios.get(`http://${apiUrl}/weather`, { params: queryParams });
+        // Ref: https://openweathermap.org/current
+        const response = await axios.get(`https://${apiUrl}/weather`, { params: queryParams });
         const data = response.data;
         const result = data.main && data.main.temp ? data.main.temp : null;
 
@@ -48,15 +49,29 @@ class PlaylistService {
     getPlaylistByGenre = async (genre) => {
         const apiUrl = environment.spotifyApi;
         const token = environment.spotifySecret;
+        const headers = { Authorization: `Bearer ${token}` };
         const queryParams = {
-            genre
-        }
+            q: genre,
+            type: 'playlist',
+            market: 'US',
+            limit: 1,
+            offset: 1
+        };
 
-        const response = await axios.get(`${apiUrl}/playlists`, { params: queryParams });
+        // Ref: https://developer.spotify.com/console/get-search-item/
+        const response = await axios.get(`https://${apiUrl}/search`, { headers, params: queryParams });
 
         const data = response.data;
 
-        return data;
+        return data.playlists ? getPlaylistUrl(data) : '';
+    }
+
+    getPlaylistUrl = (spotifyData) => {
+        const list = spotifyData.playlists.items;
+        const item = list.length > 0 ? list[0] : '';
+        const data = item && item.external_urls ? item.external_urls : '';
+
+        return data.spotify ? data.spotify : '';
     }
 }
 
