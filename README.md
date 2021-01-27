@@ -18,4 +18,4 @@ Now you can execute the previously created image with the command::
 $ docker-compose up
 ```
 
-OBS: All the docker's internal apis are ok (Users documentation endpoints), but I couldn't execute external apis calls (spotify and weather), so unfortunately the project was incomplete until now.
+OBS: If the docker cannot connect to the local network the external apis (Weather and Spotify on /playlists) will not work properly.
