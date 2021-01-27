@@ -25,8 +25,7 @@ class PlaylistService {
             units: 'metric'
         }
 
-        const response = await axios.get(`${apiUrl}/weather`, { params: queryParams });
-
+        const response = await axios.get(`http://${apiUrl}/weather`, { params: queryParams });
         const data = response.data;
         const result = data.main && data.main.temp ? data.main.temp : null;
 

@@ -1,14 +1,9 @@
 const CustomError = require('../../shared/custom-error');
-const environment = require('../../environment/environment');
-const jwt = require("jsonwebtoken");
-const { promisify } = require("util");
-
-const authRoutes = [
-    '/api/v1/playlists',
-];
+const RequestLogDAO = require('../../webservices/logs/request-log.dao');
+const utils = require('./middleware.utils');
 
 exports.checkAuthToken = async (req, res, next) => {
-    if (!needsToBeAuth(req.url)) {
+    if (!utils.needsToBeAuth(req.url)) {
         return next();
     }
 
@@ -22,7 +17,7 @@ exports.checkAuthToken = async (req, res, next) => {
     const [, token] = authHeader.split(" ");
 
     try {
-        const decoded = await promisify(jwt.verify)(token, environment.appSecret);
+        const decoded = await utils.decodeToken(token);
 
         req.userId = decoded.id;
         req.email = decoded.email;
@@ -34,18 +29,15 @@ exports.checkAuthToken = async (req, res, next) => {
     }
 }
 
-const needsToBeAuth = (path) => {
-    let needAuth = false;
-    const formattedPath = path.endsWith('/') ? path.replace(/\/\s*$/, "") : path;
-
-    for (let i = 0; i < authRoutes.length; i++) {
-        const route = authRoutes[i];
-
-        if (route === formattedPath) {
-            needAuth = true;
-            break;
-        }
+exports.saveRequestLog = async (req, res, next) => {
+    // Ignore calls in documentation
+    if (!req.url.includes('api/v1/doc')) {
+        const log = await utils.formatLogInfo(req);
+        await RequestLogDAO.insertRequestLog(log).catch(err => {
+            console.log('Insert Logs Error: ', err);
+            return next();
+        });
     }
 
-    return needAuth;
+    return next();
 }

@@ -5,7 +5,6 @@ services:
       context: .
     image: weather-playlist/nodejs
     networks:
-      - frontend
       - backend
     environment:
       - MYSQL_HOST=weather-playlist-mysql
@@ -45,5 +44,5 @@ services:
       - /sessions
     container_name: weather-playlist-phpmyadmin
 networks:
-  frontend:
   backend:
+    driver: bridge
