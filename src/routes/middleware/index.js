@@ -1,5 +1,5 @@
 const CustomError = require('../../shared/custom-error');
-const RequestLogDAO = require('../../webservices/logs/request-log.dao');
+const RequestLogDAO = require('../../webservices/request-log/request-log.dao');
 const utils = require('./middleware.utils');
 
 exports.checkAuthToken = async (req, res, next) => {

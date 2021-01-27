@@ -1,11 +1,12 @@
 const model = require('./models');
 const swaggerAutogen = require('swagger-autogen')();
 
-const outputFile = './src/docs/swagger_output.json'
+const outputFile = './src/docs/swagger_output.json';
 const endpointsFiles = [
     './src/webservices/users/user.controller',
+    './src/webservices/playlists/playlist.controller',
     './src/shared/custom-error',
-]
+];
 
 const doc = {
     info: {
@@ -21,6 +22,10 @@ const doc = {
     tags: [
         {
             name: "Users",
+            description: "Endpoints"
+        },
+        {
+            name: "Playlists",
             description: "Endpoints"
         },
     ],

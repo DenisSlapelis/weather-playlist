@@ -11,6 +11,10 @@
     {
       "name": "Users",
       "description": "Endpoints"
+    },
+    {
+      "name": "Playlists",
+      "description": "Endpoints"
     }
   ],
   "schemes": [
@@ -209,7 +213,48 @@
         ],
         "responses": {
           "200": {
-            "description": "The password was successfully changed",
+            "description": "The password was successfully changed.",
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#/definitions/CustomError"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/CustomError"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/playlists": {
+      "get": {
+        "tags": [
+          "Playlists"
+        ],
+        "description": "Returns a playlist based on current weather.",
+        "parameters": [
+          {
+            "name": "hometown",
+            "in": "header",
+            "description": "Header param inside auth token.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON with playlist url.",
             "schema": {
               "type": "object",
               "properties": {},
