@@ -7,12 +7,20 @@ router.get('/', async (req, res) => {
         == Description
         #swagger.tags = ['Playlists']
         #swagger.description = 'Returns a playlist based on current weather.'
-        #swagger.path = '/api/v1/playlists/'
+        #swagger.path = '/api/v1/playlists'
+
+        == Params:
+        #swagger.parameters['hometown'] = {
+            in: 'header',
+            description: 'Header param inside auth token.',
+            required: true,
+            type: 'string'
+        }
 
         == Successful response:
         #swagger.responses[200] = {
             schema: { },
-            description: 'JSON with playlist data.'
+            description: 'JSON with playlist url.'
         }
 
         == Error responses:
