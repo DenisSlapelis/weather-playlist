@@ -19,7 +19,7 @@
   "homepage": "https://github.com/DenisSlapelis/weather-playlist#readme",
   "scripts": {
     "test": "jest",
-    "predev": "npx sequelize-cli db:migrate",
+    "predev": "npm install && npx sequelize-cli db:migrate",
     "dev": "nodemon -L src/server.js",
     "start": "node src/server.js",
     "docs": "node src/docs/swagger.js"
